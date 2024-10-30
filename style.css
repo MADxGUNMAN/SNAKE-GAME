@@ -1,0 +1,238 @@
+/* author: https://codepen.io/jackrugile/pen/bGRWbK
+Jack Rugile
+ */
+
+/*================================================
+
+General
+
+================================================*/
+
+* {
+    box-sizing: border-box;
+  }
+  
+  html,
+  body {
+    background-color: #000;
+    height: 100%;
+  }
+  
+  body {
+    background: #222;
+    background: radial-gradient(#333, #111);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    font: 100%/1.5 sans-serif;
+    overflow: hidden;
+  }
+  
+  /*================================================
+  
+  Score
+  
+  ================================================*/
+  
+  .developer {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+  .score {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 5px;
+    text-align: center;
+  }
+  
+  /*================================================
+  
+  Stage
+  
+  ================================================*/
+  
+  .stage {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+  }
+  
+  .stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    flex-direction: row; /* Keeps layout horizontal */
+}
+
+@media (max-width: 768px) {
+    .stage {
+        flex-direction: row; /* Maintain horizontal layout on mobile */
+    }
+}
+
+  /*================================================
+  
+  Tiles
+  
+  ================================================*/
+  
+  .tile {
+    background: rgba(0, 0, 0, 0.15);
+    position: absolute;
+    transition-property:
+      background,
+      box-shadow,
+      opacity,
+      transform
+    ;
+    transform: translateZ(0);
+    transition-duration: 3000ms;
+  }
+  
+  .tile:before {
+    bottom: 0;
+    content: '';
+    height: 0;
+    left: 0;
+    margin: auto;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    transition: opacity 300ms;
+  }
+  
+  .tile.path:before {
+    opacity: 1;
+  }
+  
+  .tile.up:before {
+    border-bottom: 4px inset rgba(255, 255, 255, 0.15);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+  }
+  
+  .tile.down:before {
+    border-top: 4px inset rgba(255, 255, 255, 0.15);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+  }
+  
+  .tile.left:before { 
+    border-right: 4px inset rgba(255, 255, 255, 0.15);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+  }
+  
+  .tile.right:before { 
+    border-left: 4px inset rgba(255, 255, 255, 0.15);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+  }
+  
+  @media (max-width: 900px), (max-height: 900px) {
+    .tile.up:before,
+    .tile.down:before,
+    .tile.left:before,
+    .tile.right:before {
+      border-width: 3px;
+    }
+  }
+  
+  @media (max-width: 500px), (max-height: 500px) {
+    .tile.up:before,
+    .tile.down:before,
+    .tile.left:before,
+    .tile.right:before {
+      border-width: 2px;
+    }
+  }
+  
+  .tile.pressed {
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+    transition-duration: 0ms;
+  }
+
+  .controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
+.horizontal-controls {
+    display: flex;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    padding: 15px;
+    margin: 5px;
+    border-radius: 100%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.control-btn:active {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.control-btn.left {
+  grid-area: left;
+  margin-right: 20px; /* Horizontal space between left and right */
+}
+
+.control-btn.right {
+  grid-area: right;
+  margin-left: 20px; /* Horizontal space between left and right */
+}
+
+
+/* Hide controls by default */
+.controls {
+  display: none;
+}
+
+/* Show controls on screens 768px or smaller (typical mobile/tablet size) */
+@media (max-width: 768px) {
+  .controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+}
+
